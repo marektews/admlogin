@@ -5,7 +5,7 @@ const inputCtrl = ref(null)
 const valid = ref(null)
 
 const props = defineProps({
-    modelValue: { type: Object },
+    modelValue: { type: String },
     title: { type: String, default: "" },
     type: { type: String, default: "text" },
     maxLength: { type: String, default: "" },
@@ -13,7 +13,7 @@ const props = defineProps({
     pattern: { type: [String, undefined], default: undefined },
     validFeedback: { type: String, default: "" },
     invalidFeedback: { type: String, default: "" },
-    required: { type: Boolean, default: false },
+    required: { type: Boolean, default: true },
 })
 
 const emit = defineEmits(['update:modelValue', 'valid'])

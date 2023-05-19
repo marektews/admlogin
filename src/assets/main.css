@@ -6,6 +6,8 @@
     padding: 2rem;
 
     font-weight: normal;
+
+    user-select: none;
 }
 
 a,

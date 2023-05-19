@@ -1,6 +1,17 @@
 <script setup>
-import LoginButton from './components/btns/LoginButton.vue'
-import ValidityInputGroup from './components/input/ValidityInputGroup.vue'
+import { ref } from 'vue'
+import LoginView from './view/LoginView.vue'
+import UnauthorizeView from './view/UnauthorizeView.vue'
+import MenuView from './view/MenuView.vue'
+
+const step = ref(0)
+
+function onSuccess() {
+    step.value = 1
+}
+function onUnauthorize() {
+    step.value = 10
+}
 </script>
 
 <template>
@@ -13,16 +24,14 @@ import ValidityInputGroup from './components/input/ValidityInputGroup.vue'
         </header>
 
         <main class="mt-4">
-            <ValidityInputGroup 
-                title="Login"
+            <LoginView v-if="step === 0"
+                @success="onSuccess"
+                @unauthorize="onUnauthorize"
             />
-            <ValidityInputGroup 
-                title="Hasło"
+            <MenuView v-else-if="step === 1" />
+            <UnauthorizeView v-else 
+                @click="step = 0"
             />
-
-            <div class="mt-5">
-                <LoginButton />
-            </div>
         </main>
     </div>
 </template>
