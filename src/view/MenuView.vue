@@ -8,7 +8,7 @@ function AdminSRA() {
 <template>
     <div>
         <button class="btn btn-lg btn-outline-primary" @click="AdminSRA">
-            SYSTEM REJESTRACJI AUTOKARÓW
+            ANKIETY AUTOKARÓW
         </button>
     </div>
 </template>
