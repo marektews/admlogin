@@ -1,6 +1,6 @@
 {
   "name": "admlogin",
-  "version": "0.3",
+  "version": "0.4",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
-    "vite": "^4.3.5"
+    "vite": "^4.3.9"
   }
 }
