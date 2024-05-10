@@ -15,6 +15,10 @@ function AdminPK() {
 function AdminRJA() {
     window.location = '/admin/rja'
 }
+
+function AdminSOA() {
+    window.location = '/admin/monitoring'
+}
 </script>
 
 <template>
@@ -33,6 +37,9 @@ function AdminRJA() {
             IDENTYFIKATORY PARKINGOWE - KSIĘŻYCOWY
         </button>
 
+        <button class="btn btn-lg btn-outline-danger" @click="AdminSOA">
+            SYSYTEM ODPRAWY - MONITORING
+        </button>
     </div>
 </template>
 
