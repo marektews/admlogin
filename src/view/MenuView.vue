@@ -31,10 +31,10 @@ function AdminSOA() {
         </button>
 
         <button class="btn btn-lg btn-outline-info" @click="AdminSRP">
-            IDENTYFIKATORY PARKINGOWE - LEGIA
+            IDENTYFIKATORY PARKINGOWE - PARKING LODOWISKA
         </button>
         <button class="btn btn-lg btn-outline-info" @click="AdminPK">
-            IDENTYFIKATORY PARKINGOWE - KSIĘŻYCOWY
+            IDENTYFIKATORY PARKINGOWE - TORWAR
         </button>
 
         <button class="btn btn-lg btn-outline-danger" @click="AdminSOA">
