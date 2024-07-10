@@ -2,6 +2,10 @@
 import BackButton from '../components/btns/BackButton.vue'
 
 const emit = defineEmits(['click'])
+
+const onClick = () => {
+    emit('click')
+}
 </script>
 
 <template>
@@ -12,7 +16,7 @@ const emit = defineEmits(['click'])
 
     <div class="mt-5">
         <BackButton
-            @click="$emit('click')"
+            @click="onClick"
         />
     </div>
 </template>
