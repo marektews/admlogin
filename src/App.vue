@@ -1,10 +1,25 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, provide, onMounted } from 'vue'
 import LoginView from './view/LoginView.vue'
 import UnauthorizeView from './view/UnauthorizeView.vue'
 import MenuView from './view/MenuView.vue'
 
 const step = ref(0)
+const logged_user = ref("")
+provide('logged_user', logged_user)
+
+onMounted(() => {
+    if(sessionStorage.length > 0) {
+        let tmp = sessionStorage.getItem('logged')
+        if(tmp.length) {
+            let sl = tmp.split(' ')
+            if(sl.length === 2) {
+                logged_user.value = tmp
+                onSuccess()
+            }
+        }
+    }
+})
 
 function onSuccess() {
     step.value = 1
@@ -20,6 +35,9 @@ function onUnauthorize() {
             <div>
                 <div class="title">Logowanie</div>
                 <div>System parkingowy - poziom moderatora</div>
+            </div>
+            <div class="logged-user">
+                {{ logged_user }}
             </div>
         </header>
 
@@ -39,7 +57,8 @@ function onUnauthorize() {
 <style scoped>
 header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 16pt;
     margin-bottom: 24pt;
 }
@@ -57,5 +76,9 @@ main {
 
 main > div {
     flex-grow: 1;
+}
+
+.logged-user {
+    font-size: 2rem;
 }
 </style>

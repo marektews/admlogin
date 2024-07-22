@@ -38,7 +38,7 @@ function AdminSOA() {
         </button>
 
         <button class="btn btn-lg btn-outline-danger" @click="AdminSOA">
-            SYSYTEM ODPRAWY - MONITORING
+            SYSTEM ODPRAWY - MONITORING
         </button>
     </div>
 </template>

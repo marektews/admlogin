@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, inject } from 'vue'
 import LoginButton from '../components/btns/LoginButton.vue'
 import ValidityInputGroup from '../components/input/ValidityInputGroup.vue'
 
@@ -10,6 +10,7 @@ const auth = reactive({
     password: ''
 })
 const validity = ref([false, false])
+const logged_user = inject('logged_user')
 
 function onSubmit() {
     fetch('/api/auth/admin', {
@@ -21,11 +22,18 @@ function onSubmit() {
     })
     .then(response => {
         if(response.status === 200)
-            emit('success')
+            return response.json()
         else {
             console.log("Access denied: reason =", response.statusText)
             emit('unauthorize')
+            return {}
         }
+    })
+    .then((data) => {
+        let full_name = `${data.fn} ${data.ln}`
+        sessionStorage.setItem('logged', full_name)
+        logged_user.value = full_name
+        emit('success')
     })
     .catch(err => {
         console.log("Logging error: ", err)
