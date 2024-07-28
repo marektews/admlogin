@@ -1,24 +1,50 @@
 <script setup>
-import { ref, provide, onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import LoginView from './view/LoginView.vue'
 import UnauthorizeView from './view/UnauthorizeView.vue'
 import MenuView from './view/MenuView.vue'
 
 const step = ref(0)
-const logged_user = ref("")
-provide('logged_user', logged_user)
+const store = useStore()
 
 onMounted(() => {
-    if(sessionStorage.length > 0) {
-        let tmp = sessionStorage.getItem('logged')
-        if(tmp.length) {
-            let sl = tmp.split(' ')
-            if(sl.length === 2) {
-                logged_user.value = tmp
-                onSuccess()
+    const sl = document.cookie.split(';')
+    sl.forEach((elem) => {
+        const sl2 = elem.split('=')
+        const key = sl2[0].trim()
+        switch(key) {
+            case "logged_id": {
+                const user_id = sl2[1].trim()
+                store.commit('setUserId', user_id)
+
+                fetch("/api/auth/permissions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ user_id: user_id })
+                })
+                .then(resp => {
+                    if(resp.status === 200)
+                        return resp.json()
+                    else
+                        throw resp
+                })
+                .then((data) => {
+                    store.commit('setPermissions', data)
+                })
+                .catch((resp) => {
+                    console.error('setPermissions, status:', resp.status)
+                })
+                break
+            }
+            case "logged_name": {
+                store.commit('setUserFullname', sl2[1].trim())
+                break
             }
         }
-    }
+    })
 })
 
 function onSuccess() {
@@ -27,6 +53,8 @@ function onSuccess() {
 function onUnauthorize() {
     step.value = 10
 }
+
+watch(() => store.state.permission, () => { step.value = 1 })
 </script>
 
 <template>
@@ -36,8 +64,8 @@ function onUnauthorize() {
                 <div class="title">Logowanie</div>
                 <div>System parkingowy - poziom moderatora</div>
             </div>
-            <div class="logged-user">
-                {{ logged_user }}
+            <div v-if="step === 1" class="logged-user">
+                {{ store.state.user_fullname }}
             </div>
         </header>
 
