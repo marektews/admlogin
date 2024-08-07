@@ -28,7 +28,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faBus, faCar, faClock, faParking, faScrewdriverWrench, faUsers, faWaveSquare, faWheelchair } from '@fortawesome/free-solid-svg-icons';
+import { faBus, faCar, faClock, faParking, faScrewdriverWrench, faUsers, faWaveSquare, faWheelchair, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 import MenuTile from './MenuTile.vue'
 
 const store = useStore()
@@ -98,6 +98,12 @@ const options = ref([
                 title: "KONTA UŻYTKOWNIKÓW",
                 icon: faUsers,
                 fpermission: "is_users",
+            },
+            { 
+                location: "/admin/limits", 
+                title: "LIMITY IDENTYFIKATORÓW",
+                icon: faGaugeHigh,
+                fpermission: "is_limits",
             },
         ]
     }
