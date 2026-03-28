@@ -11,7 +11,7 @@ const onClick = () => {
 <template>
     <div class="alert alert-danger">
         <div>Brak uprawnień !!!</div>
-        <div>Login i hasło nie pasują. Sprawdź stan klawisza CAPSLOCK i spróbuj ponownie.</div>
+        <div>Login i hasło nie pasują. Pamiętaj, że wielkość liter ma znaczenie. Sprawdź stan klawisza CAPSLOCK i spróbuj ponownie.</div>
     </div>
 
     <div class="mt-5">

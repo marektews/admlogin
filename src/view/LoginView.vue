@@ -32,8 +32,10 @@ function onSubmit() {
     .then((data) => {
         console.log("Login response:", data)
         let full_name = `${data.fn} ${data.ln}`
-        document.cookie = `logged_name=${full_name}; Path=/`
-        document.cookie = `logged_id=${data.id}; Path=/`
+        sessionStorage.setItem('logged_name', full_name)
+        sessionStorage.setItem('logged_id', data.id)
+        // document.cookie = `logged_name=${full_name}; Path=/`
+        // document.cookie = `logged_id=${data.id}; Path=/`
         store.commit('setUserId', data.id)
         store.commit('setUserFullname', full_name)
         store.commit('setPermissions', data.permissions)        

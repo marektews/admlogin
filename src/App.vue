@@ -55,6 +55,28 @@ function onUnauthorize() {
 }
 
 watch(() => store.state.permission, () => { step.value = 1 })
+
+function onLogout() {
+    fetch("/api/auth/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: store.state.user_id })
+    })
+    .then(resp => {
+        if(resp.ok) {
+            document.cookie = ""
+            sessionStorage.clear()
+            window.location.href = "/"
+        }
+        else
+            throw resp
+    })
+    .catch((resp) => {
+        console.error('logout, status:', resp.status)
+    })
+}
 </script>
 
 <template>
@@ -64,8 +86,9 @@ watch(() => store.state.permission, () => { step.value = 1 })
                 <div class="title">Logowanie</div>
                 <div>System parkingowy - poziom moderatora</div>
             </div>
-            <div v-if="step === 1" class="logged-user">
-                {{ store.state.user_fullname }}
+            <div v-if="step === 1" class="d-flex align-items-center gap-3">
+                <div class="logged-user">{{ store.state.user_fullname }}</div>
+                <div class="btn btn-outline-danger" @click="onLogout">Wyloguj</div>
             </div>
         </header>
 
