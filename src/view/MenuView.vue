@@ -52,7 +52,7 @@ const options = ref([
         title: "Autokary",
         children: [
             { 
-                location: "/admin/sra", 
+                location: "/admin/bus", 
                 title: "ANKIETY AUTOKARÓW",
                 icon: faBus,
                 fpermission: "is_sra",
@@ -77,13 +77,13 @@ const options = ref([
         children: [
             { 
                 location: "/admin/srp", 
-                title: "IDENTYFIKATORY PARKINGOWE - PARKING LODOWISKA",
+                title: "IDENTYFIKATORY PARKINGOWE - NIEPEŁNOSPRAWNI",
                 icon: faWheelchair,
                 fpermission: "is_srp",
             },
             { 
                 location: "/admin/pk", 
-                title: "IDENTYFIKATORY PARKINGOWE - TORWAR",
+                title: "IDENTYFIKATORY PARKINGOWE - DZIAŁY KONGRESOWE",
                 icon: faCar,
                 fpermission: "is_pk",
             },
@@ -113,7 +113,7 @@ const options = ref([
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .mylayout {
     display: flex;
     flex-direction: column;

@@ -68,7 +68,7 @@ function onLogout() {
         if(resp.ok) {
             document.cookie = ""
             sessionStorage.clear()
-            window.location.href = "/"
+            window.location.href = "/admin/"
         }
         else
             throw resp

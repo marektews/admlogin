@@ -3,10 +3,10 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode }) =>{
+export default defineConfig(({ command, mode }) => {
     const isProduction = command === 'build';
     return {
-        base: isProduction ? '/admin/login/' : '/',
+        base: isProduction ? '/admin/' : '/',
         publicDir: '../shared',
         server: {
             https: false,
@@ -16,6 +16,7 @@ export default defineConfig(({ command, mode }) =>{
                     target: "http://localhost:1977/",
                     changeOrigin: true,
                     secure: false,
+                    rewrite: (path) => path.replace(/^\/api/, ''),
                 }
             }
         },
@@ -23,6 +24,13 @@ export default defineConfig(({ command, mode }) =>{
         resolve: {
             alias: {
                 '@': fileURLToPath(new URL('./src', import.meta.url))
+            }
+        },
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    api: 'modern-compiler'
+                }
             }
         }
     }
