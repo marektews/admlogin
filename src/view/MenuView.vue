@@ -52,19 +52,19 @@ const options = ref([
         title: "Autokary",
         children: [
             { 
-                location: "/admin/bus", 
+                location: "/admin/bus/", 
                 title: "ANKIETY AUTOKARÓW",
                 icon: faBus,
                 fpermission: "is_sra",
             },
             { 
-                location: "/admin/rja", 
+                location: "/admin/rja/", 
                 title: "ROZKŁADY JAZDY - BUDOWANIE",
                 icon: faClock,
                 fpermission: "is_rja",
             },
             { 
-                location: "/admin/monitoring", 
+                location: "/admin/monitoring/", 
                 title: "SYSTEM ODPRAWY - MONITORING",
                 icon: faWaveSquare,
                 fpermission: "is_monitoring",
@@ -76,13 +76,13 @@ const options = ref([
         title: "Parkingi",
         children: [
             { 
-                location: "/admin/srp", 
+                location: "/admin/srp/", 
                 title: "IDENTYFIKATORY PARKINGOWE - NIEPEŁNOSPRAWNI",
                 icon: faWheelchair,
                 fpermission: "is_srp",
             },
             { 
-                location: "/admin/pk", 
+                location: "/admin/pk/", 
                 title: "IDENTYFIKATORY PARKINGOWE - DZIAŁY KONGRESOWE",
                 icon: faCar,
                 fpermission: "is_pk",
@@ -94,13 +94,13 @@ const options = ref([
         title: "Administracyjne",
         children: [
             { 
-                location: "/admin/users", 
+                location: "/admin/users/", 
                 title: "KONTA UŻYTKOWNIKÓW",
                 icon: faUsers,
                 fpermission: "is_users",
             },
             { 
-                location: "/admin/limits", 
+                location: "/admin/limits/", 
                 title: "LIMITY IDENTYFIKATORÓW",
                 icon: faGaugeHigh,
                 fpermission: "is_limits",
