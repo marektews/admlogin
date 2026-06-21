@@ -9,41 +9,34 @@ const step = ref(0)
 const store = useStore()
 
 onMounted(() => {
-    const sl = document.cookie.split(';')
-    sl.forEach((elem) => {
-        const sl2 = elem.split('=')
-        const key = sl2[0].trim()
-        switch(key) {
-            case "logged_id": {
-                const user_id = sl2[1].trim()
-                store.commit('setUserId', user_id)
+    // Przywrócenie sesji po przeładowaniu strony: ciasteczko sesji (HttpOnly) wysyłane jest
+    // automatycznie, więc backend rozpozna zalogowanego użytkownika na podstawie sesji.
+    // Imię/nazwisko i id odtwarzamy z sessionStorage zapisanego podczas logowania.
+    const user_id = sessionStorage.getItem('logged_id')
+    const full_name = sessionStorage.getItem('logged_name')
+    if(!user_id) return // brak lokalnych danych logowania -> pozostajemy na ekranie logowania
 
-                fetch("/api/auth/permissions", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ user_id: user_id })
-                })
-                .then(resp => {
-                    if(resp.status === 200)
-                        return resp.json()
-                    else
-                        throw resp
-                })
-                .then((data) => {
-                    store.commit('setPermissions', data)
-                })
-                .catch((resp) => {
-                    console.error('setPermissions, status:', resp.status)
-                })
-                break
-            }
-            case "logged_name": {
-                store.commit('setUserFullname', sl2[1].trim())
-                break
-            }
-        }
+    fetch("/api/auth/permissions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(resp => {
+        if(resp.status === 200)
+            return resp.json()
+        else
+            throw resp
+    })
+    .then((data) => {
+        store.commit('setUserId', user_id)
+        if(full_name)
+            store.commit('setUserFullname', full_name)
+        store.commit('setPermissions', data)
+    })
+    .catch((resp) => {
+        console.error('restore session, status:', resp?.status)
+        sessionStorage.clear()
     })
 })
 
@@ -57,16 +50,10 @@ function onUnauthorize() {
 watch(() => store.state.permission, () => { step.value = 1 })
 
 function onLogout() {
-    fetch("/api/auth/logout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: store.state.user_id })
-    })
+    // Sesję usuwa backend (ClearSession) na podstawie ciasteczka; nie przesyłamy user_id.
+    fetch("/api/auth/logout", { method: "POST" })
     .then(resp => {
         if(resp.ok) {
-            document.cookie = ""
             sessionStorage.clear()
             window.location.href = "/admin/"
         }
@@ -74,7 +61,7 @@ function onLogout() {
             throw resp
     })
     .catch((resp) => {
-        console.error('logout, status:', resp.status)
+        console.error('logout, status:', resp?.status)
     })
 }
 </script>
